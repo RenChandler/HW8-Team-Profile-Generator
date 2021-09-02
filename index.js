@@ -186,4 +186,15 @@ const writeFile = data => {
     })
 }; 
 
+addManager()
+    .then(addEmployee)
+    .then(team =>{
+        return generateHTML(team)
+    }).then(page =>{
+        return writeFile(page)
+    }
+        ).catch(err => {
+            console.log(err)
+        })
+
 
