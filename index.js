@@ -9,7 +9,7 @@ const path = require("path")
 const team = [];
 
 const addManager = () => {
-    return inquirer.prompt([
+    return inquire.prompt([
         {
             type: 'input',
             name: 'name',
