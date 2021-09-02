@@ -79,9 +79,9 @@ const addEmployee = () => {
         {
             type: 'list',
             name: 'role',
-            message: 'What is the role of the employee'
+            message: 'What is the role of the employee',
             choices: ['Engineer','Intern']
-        }
+        },
         {
             type: 'input',
             name: 'name',
@@ -152,14 +152,38 @@ const addEmployee = () => {
                 }
             }
         },
-    ]).then(managerInput => {
-        const {name,id, email, officeNumber}= managerInput
-        const manager = new Manager(name, id, email, officeNumber)
+    ]).then(employeeData => {
+        let {name, id, email, github, school} = employeeData
+        let employee;
 
-        team.push(manager)
-        console.log("manager")
+        if (role === "Engineer"){
+            employee = new Engineer (name, id, email, github);
+            console.log(employee)
+        }
+        else {
+            employee = new Intern(name, id, email, school)
+        }
+        team.push(employee);
 
+        if (confirmAddEmployee) {
+            return addEmployee(team); 
+        } else {
+            return team;
+        }
     })
 };
+
+const writeFile = data => {
+    fs.writeFile('./dist/index.html', data, err => {
+
+        if (err) {
+            console.log(err);
+            return;
+
+        } else {
+            console.log("Team profile created!")
+        }
+    })
+}; 
 
 
