@@ -1,3 +1,4 @@
+const generateHTML = require('./src/generateHTML')
 const Manager= require("./lib/Manager")
 const Intern = require("./lib/Intern")
 const Engineer = require("./lib/Engineer")
@@ -75,7 +76,7 @@ const addManager = () => {
     })
 };
 const addEmployee = () => {
-    return inquierer.prompt([
+    return inquire.prompt([
         {
             type: 'list',
             name: 'role',
@@ -126,14 +127,15 @@ const addEmployee = () => {
             type: 'input',
             name: 'github',
             message: 'What is their gibhub username?', 
+            when: (input) => input.role === "Engineer",
             validate: nameInput => {
-                if (isNaN(nameInput)) {
-                    console.log ("What is their username?");
-                    return false; 
+                if (nameInput) {
+                    return true;
                     
                 } 
                 else {
-                    return true;
+                    console.log ("What is their username?");
+                    return false; 
                 }
             }
         },
@@ -141,19 +143,26 @@ const addEmployee = () => {
             type: 'input',
             name: 'school',
             message: 'Where did they go to school?', 
+            when: (input) => input.role === "Intern",
             validate: nameInput => {
-                if (isNaN(nameInput)) {
+                if (nameInput) {
+                    return true;
+                } 
+                else {
                     console.log ("Where did they go to school?");
                     return false; 
                     
-                } 
-                else {
-                    return true;
                 }
             }
         },
+        {
+            type: 'confirm',
+            name: 'confirmEmployee',
+            message: 'Any other team members?',
+            default: false
+        }
     ]).then(employeeData => {
-        let {name, id, email, github, school} = employeeData
+        let {name, id, email, role, github, school,confirmEmployee} = employeeData
         let employee;
 
         if (role === "Engineer"){
@@ -165,7 +174,7 @@ const addEmployee = () => {
         }
         team.push(employee);
 
-        if (confirmAddEmployee) {
+        if (confirmEmployee) {
             return addEmployee(team); 
         } else {
             return team;

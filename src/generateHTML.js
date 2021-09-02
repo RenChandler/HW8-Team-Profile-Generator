@@ -15,23 +15,7 @@ const generateManager = function(manager){
 </div>
 `
 }
-const generateIntern = function(intern){
-    return `  
-    <div class="col-4 mt-4">
-    <div class="card h-100">
-        <div class="card-header">
-            <h3>${intern.name}</h3>
-            <h4>Intern</h4>
-        </div>
-        <div class="card-body">
-            <p class="id">ID: ${intern.id}</p>
-            <p class="email">Email: <a href="mailto:${intern.email}">${intern.email}</a></p>
-            <p class="office">School: ${intern.school}</p>
-        </div>
-    </div>
-</div>
-`
-}
+
 const generateEngineer = function(engineer){
     return `  
     <div class="col-4 mt-4">
@@ -132,6 +116,6 @@ const generateTeamPages = function (employeeCards){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     </html>`
 }
-modules.export= generateHTML
+module.exports= generateHTML
 
 
